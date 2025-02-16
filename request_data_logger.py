@@ -44,5 +44,15 @@ def summary():
 
     return jsonify({'average_time': avg_time, 'total_requests': total_requests})
 
+@app.route('/delete', methods=['DELETE'])
+def delete_all():
+    conn = sqlite3.connect('requests.db')
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM requests")
+    conn.commit()
+    conn.close()
+
+    return jsonify({'status': 'all records deleted'}), 200
+
 if __name__ == '__main__':
     app.run(debug=True) # Flask defaults to port=5000
