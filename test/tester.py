@@ -1,3 +1,5 @@
+# This test program demonstrates an example of making requests to the Request Data Logger microservice
+# by calling the log, summary, and delete REST API endpoints.
 import requests
 
 microservice_host='http://127.0.0.1:5000'
