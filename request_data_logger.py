@@ -20,39 +20,54 @@ init_db()
 
 @app.route('/log', methods=['POST'])
 def log_request():
-    data = request.get_json()
-    time_taken = data.get('time_taken')
-    req_type = data.get('type')
-    timestamp = datetime.now().isoformat()
+    try:
+        data = request.get_json()
+        if not data or 'time_taken' not in data or 'type' not in data:
+            return jsonify({'error': 'Invalid input'}), 400
 
-    conn = sqlite3.connect('requests.db')
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO requests (time_taken, type, timestamp) VALUES (?, ?, ?)",
-                   (time_taken, req_type, timestamp))
-    conn.commit()
-    conn.close()
+        time_taken = data.get('time_taken')
+        req_type = data.get('type')
+        timestamp = datetime.now().isoformat()
 
-    return jsonify({'status': 'success'}), 201
+        conn = sqlite3.connect('requests.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO requests (time_taken, type, timestamp) VALUES (?, ?, ?)",
+                       (time_taken, req_type, timestamp))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'status': 'success'}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/summary', methods=['GET'])
 def summary():
-    conn = sqlite3.connect('requests.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT AVG(time_taken), COUNT(*) FROM requests")
-    avg_time, total_requests = cursor.fetchone()
-    conn.close()
+    try:
+        conn = sqlite3.connect('requests.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT AVG(time_taken), COUNT(*) FROM requests")
+        avg_time, total_requests = cursor.fetchone()
+        conn.close()
 
-    return jsonify({'average_time': avg_time, 'total_requests': total_requests})
+        if avg_time is None or total_requests is None:
+            return jsonify({'average_time': None, 'total_requests': 0}), 200
+
+        return jsonify({'average_time': avg_time, 'total_requests': total_requests}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/delete', methods=['DELETE'])
 def delete_all():
-    conn = sqlite3.connect('requests.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM requests")
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect('requests.db')
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM requests")
+        conn.commit()
+        conn.close()
 
-    return jsonify({'status': 'all records deleted'}), 200
+        return jsonify({'status': 'all records deleted'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True) # Flask defaults to port=5000

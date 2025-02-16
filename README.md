@@ -26,10 +26,21 @@ This microservice logs request data (time taken, type, etc.) and provides summar
   {
     "status": "success"
   }
-
-#### Example Call
-
-**Python Code:**
+  
+**Error Handling Response:**
+- Status: 400 Bad Request if the input is invalid.
+  - Payload:
+    ```json
+    {
+      "error": "Invalid input"
+    }
+- Status: 500 Internal Server Error if an exception occurs.
+  - Payload:
+    ```json
+    {
+      "error": "<error_message>"
+    }
+**Example Call using Python Code:**
 ```python
 import requests
 
@@ -60,9 +71,15 @@ print(response.json())  # Output: {'status': 'success'}
     "total_requests": <int>
   }
 
-#### Example Call
+**Error Handling Response:**
+- Status: 500 Internal Server Error if an exception occurs.
+  - Payload:
+    ```json
+    {
+      "error": "<error_message>"
+    }
 
-**Python Code:**
+**Example Call using Python Code:**
 ```python
 import requests
 
@@ -88,9 +105,15 @@ print(response.json())  # Output: {'average_time': 1.23, 'total_requests': 100}
     "status": "all records deleted"
   }
 
-#### Example Call
+**Error Handling Response:**
+- Status: 500 Internal Server Error if an exception occurs.
+  - Payload:
+    ```json
+    {
+      "error": "<error_message>"
+    }
 
-**Python Code:**
+**Example Call using Python Code:**
 ```python
 import requests
 
