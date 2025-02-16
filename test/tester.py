@@ -32,12 +32,14 @@ if __name__ == "__main__":
     request_summary()
     input("Database is currently empty.\nPress Enter to log first data entry...\n")
 
+    print(f"Logging first data: {log_data_list[0]}")
     log_request(log_data_list[0])
     input("Logged first request data.\nPress Enter to fetch summary of request data...\n")
 
     request_summary()
     input("Summary after logging first request data.\nPress Enter to log second data entry...\n")
 
+    print(f"Logging second data: {log_data_list[0]}")
     log_request(log_data_list[1])
     input("Logged second request data.\nPress Enter to request summary...\n")
 
