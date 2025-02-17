@@ -120,9 +120,12 @@ import requests
 response = requests.delete('http://127.0.0.1:5000/delete')
 print(response.json())  # Output: {'status': 'all records deleted'}
 ```
+---
 
 ## UML Sequence Diagram
 ![UML Sequence Diagram](images/UML%20for%20CS361%20MicrsoservieA-Request%20Data%20Logger.jpeg)
+
+---
 
 ## Setup Instructions
 
