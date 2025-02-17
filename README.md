@@ -120,5 +120,46 @@ import requests
 response = requests.delete('http://127.0.0.1:5000/delete')
 print(response.json())  # Output: {'status': 'all records deleted'}
 ```
+
 ## UML Sequence Diagram
 ![UML Sequence Diagram](images/UML%20for%20CS361%20MicrsoservieA-Request%20Data%20Logger.jpeg)
+
+## Setup Instructions
+
+### Prerequisites
+
+- Python 3.x installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
+
+### Installing pip
+
+`pip` is the package installer for Python. It is used to install and manage software packages written in Python. Most Python distributions come with `pip` pre-installed. If you need to install it, follow these steps:
+- [Official pip Installation Guide](https://pip.pypa.io/en/stable/installation/)
+- [How to Install pip on Windows (Stack Overflow)](https://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows)
+-
+  ```bash
+  # Download get-pip.py
+  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  
+  # Run the script
+  python get-pip.py
+  ```
+### Installing Flask
+Flask is a micro web framework for Python. It is used to build the microservice.
+- [Official Flask Installation Guide](https://flask.palletsprojects.com/en/stable/installation/)
+  ```bash
+  pip install Flask
+  ```
+
+### Running the Microservice
+1. **Clone the repository:**
+-
+  ```bash
+  git clone https://github.com/bling214/CS361-MicroserviceA-Request-Data-Logger.git
+  cd CS361-MicroserviceA-Request-Data-Logger
+  ```
+2. **Run the Flask application:**
+-
+  ```bash
+  python app.py
+  ```
+  **Note:** Flask is configured to use port 5000 by default. The microservice should now be running on http://127.0.0.1:5000.
